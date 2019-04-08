@@ -52,6 +52,23 @@ public class AdjList extends AbstractAssocGraph
 
 
     public void addEdge(String srcLabel, String tarLabel, int weight) {
+    	
+    	//Constrcut a new node if the input is valid.
+    	if (srcLabel != null && tarLabel != null && weight != 0)
+    	{
+    		Node newNode =  new Node(weight, tarLabel, srcLabel);
+    	}
+    	
+    	//Iterate through the array to find the target vert
+    	for(int i = 0; i < verts.length; i++)
+    	{
+    		if(verts[i] == tarLabel)
+    		{
+    			
+    		}
+    	}
+    	
+    	
         // Implement me!
     } // end of addEdge()
 
@@ -103,7 +120,7 @@ public class AdjList extends AbstractAssocGraph
         // Implement me!
     } // end of printEdges()
 
-//This must be for the linked lists?
+
     protected class Node {
     	
     	protected int weight;
@@ -117,10 +134,11 @@ public class AdjList extends AbstractAssocGraph
 
     	
     	public Node(int weight, String srcLabel, String tarLabel) {
-    		weight = weight;
-    		srcLabel = srcLabel;
-    		tarLabel = tarLabel;
+    		this.weight = weight;
+    		this.srcLabel = srcLabel;
+    		this.tarLabel = tarLabel;
     	}
+    	
     	
     	
     	
