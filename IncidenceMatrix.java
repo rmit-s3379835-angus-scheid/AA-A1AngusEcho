@@ -15,8 +15,15 @@ public class IncidenceMatrix extends AbstractAssocGraph
 	/**
 	 * Contructs empty graph.
 	 */
+	 private int [][] iMatrix;
+	 int numVertex;
+	 int numEdge;
+	 
+	 private List<String> vertexCollection=new ArrayList<String>();
+	 
     public IncidenceMatrix() {
     	// Implement me!
+	iMatrix = new int[][];
     } // end of IncidentMatrix()
 
 
