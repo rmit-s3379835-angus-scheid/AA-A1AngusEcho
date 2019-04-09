@@ -15,6 +15,10 @@ public class AdjList extends AbstractAssocGraph
 	//java.lang.String[] verts = new String[8];
 	public String[] verts;
 	
+	//Map to monitor linkedlist to vert locations.
+	Map vertListMap = new HashMap();
+	
+	
     /**
 	 * Constructs empty graph.
 	 */
@@ -36,6 +40,9 @@ public class AdjList extends AbstractAssocGraph
     		if (verts[i] == null)
     		{
     				verts[i] = vertLabel;
+    				linkedList newLL = new linkedList(vertLabel);
+    				//Also putting both the vertLabel and linked list in the map, for extra organisation.
+    				vertListMap.put(vertLabel, newLL);
     				break;
     		}
     	}
@@ -53,20 +60,75 @@ public class AdjList extends AbstractAssocGraph
 
     public void addEdge(String srcLabel, String tarLabel, int weight) {
     	
+    	System.out.println("starting addEdge");
+    	
     	//Constrcut a new node if the input is valid.
     	if (srcLabel != null && tarLabel != null && weight != 0)
     	{
     		Node newNode =  new Node(weight, tarLabel, srcLabel);
     	}
     	
+    	System.out.println("Input Valid!");
+    	
     	//Iterate through the array to find the target vert
     	for(int i = 0; i < verts.length; i++)
     	{
-    		if(verts[i] == tarLabel)
+    		System.out.println("Verts iteration");
+    		
+    		if(verts[i].equals(srcLabel))
     		{
+    			System.out.println("Source found! :" + srcLabel);
+    			//Make a new node here.
+    			Node newNode = new Node(weight, tarLabel, srcLabel);
+    			//Node 
+    			//Node currentNode;
     			
+    			//I need to find the list, and the end!
+    			linkedList currentList = (linkedList) vertListMap.get(srcLabel);
+    			
+    			Node currentNode = currentList.head;
+    			
+    			//Detect if the head is empty first.
+    			if (currentList.head == null)
+    			{
+    				System.out.println("Head is empty");
+    				currentList.head = newNode;
+    				currentList.size += 1;
+    			}
+    			else
+    			{
+    				//Iterate here.
+    				System.out.println("Adding to later in the list");
+    				System.out.println("currentNode.next status: " + currentNode.next);
+    				
+    				//if (currentNode.
+    				
+    				
+    				
+    				while (currentNode.next != null)
+    				{
+    					System.out.println("Iterating to later in the LL");
+    					System.out.println("Iterating through LL: " + currentNode.srcLabel + ", " + currentNode.tarLabel + ", " + currentNode.weight);
+    					currentNode = currentNode.next;
+    					currentList.size += 1;
+    				}
+    				
+    				if (currentNode.next == null)
+    				{
+    					System.out.println("current.next == null");
+    					currentNode.next = newNode;
+    					
+    				}
+    				
+    			}
+    			
+    			return;
+    				
     		}
     	}
+    	
+    	//Iterate through the map now.
+    	
     	
     	
         // Implement me!
@@ -120,6 +182,23 @@ public class AdjList extends AbstractAssocGraph
         // Implement me!
     } // end of printEdges()
 
+    
+    public class linkedList
+    {
+    	protected Node head;
+    	protected int size;
+    	
+    	//Just for something different, I'm adding a vert string property to the linked list class, hopefully this will make things clearer.
+    	protected String vert;
+    	
+
+    	public linkedList(String vert)
+    	{
+    		this.head = head;
+    		this.vert = vert;
+    		this.size = 0;
+    	}
+    }
 
     protected class Node {
     	
