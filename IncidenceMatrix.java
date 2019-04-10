@@ -17,11 +17,13 @@ public class IncidenceMatrix extends AbstractAssocGraph
 	 */
     public IncidenceMatrix() {
     	// Implement me!
+    	//2d array goes here!
     } // end of IncidentMatrix()
 
 
     public void addVertex(String vertLabel) {
         // Implement me!
+    	
     } // end of addVertex()
 
 

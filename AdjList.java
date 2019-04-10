@@ -1,6 +1,10 @@
 import java.io.*;
 import java.util.*;
 
+//import AdjList.linkedList;
+
+//import AdjList.linkedList;
+
 /**
  * Adjacency list implementation for the AssociationGraph interface.
  *
@@ -16,7 +20,7 @@ public class AdjList extends AbstractAssocGraph
 	public String[] verts;
 	
 	//Map to monitor linkedlist to vert locations.
-	Map vertListMap = new HashMap();
+	Map<String, linkedList> vertListMap = new HashMap<String, linkedList>();
 	
 	
     /**
@@ -43,6 +47,7 @@ public class AdjList extends AbstractAssocGraph
     				linkedList newLL = new linkedList(vertLabel);
     				//Also putting both the vertLabel and linked list in the map, for extra organisation.
     				vertListMap.put(vertLabel, newLL);
+    				vertListMap.values().toString();
     				break;
     		}
     	}
@@ -93,14 +98,14 @@ public class AdjList extends AbstractAssocGraph
     			{
     				System.out.println("Head is empty");
     				currentList.head = newNode;
-    				currentList.size += 1;
+    				currentList.size++;
     			}
     			else
     			{
     				//Iterate here.
     				System.out.println("Adding to later in the list");
     				System.out.println("currentNode.next status: " + currentNode.next);
-    				
+    				vertListMap.forEach((key, value) -> System.out.println("vertListMap printout: " + key + ":" + value.size));
     				//if (currentNode.
     				
     				
@@ -110,34 +115,69 @@ public class AdjList extends AbstractAssocGraph
     					System.out.println("Iterating to later in the LL");
     					System.out.println("Iterating through LL: " + currentNode.srcLabel + ", " + currentNode.tarLabel + ", " + currentNode.weight);
     					currentNode = currentNode.next;
-    					currentList.size += 1;
-    				}
-    				
-    				if (currentNode.next == null)
-    				{
-    					System.out.println("current.next == null");
-    					currentNode.next = newNode;
+    					
+    					
+    					if (currentNode.next == null)
+        				{
+        					System.out.println("current.next == null");
+        					currentNode.next = newNode;
+        					System.out.println("vertListMap.size A: " + vertListMap.size());
+        					currentList.size++;
+        				}
     					
     				}
     				
+    				
+    				
     			}
+    			
+    			
+    			
+    			
+    			System.out.println("vertListMap.size B: " + vertListMap.size());
+    			/*
+    			for (vertListMap<String, Object> entry : vertListMap.entrySet())
+    			{
+    				System.out.println(entry.getKey() + ":" + entry.getValue().toString());
+    			}*/
     			
     			return;
     				
     		}
     	}
     	
-    	//Iterate through the map now.
+    	//The code doesn't go here?
     	
     	
+    	vertListMap.values().toString();
     	
+    	System.out.println("vertListMap.size: " + vertListMap.size());
         // Implement me!
     } // end of addEdge()
 
 
     public int getEdgeWeight(String srcLabel, String tarLabel) {
 		    // Implement me!
-    	
+	    	/*for(int i = 0; i < verts.length; i++)
+	    	{
+	    		System.out.println("Verts iteration");
+	    		
+	    		if(verts[i].equals(srcLabel))
+	    		{
+	    			//Go through the LL now.
+	    			
+	    			
+	    			
+	    			while (currentNode.next != null)
+    				{
+    					//System.out.println("Iterating to later in the LL");
+    					//System.out.println("Iterating through LL: " + currentNode.srcLabel + ", " + currentNode.tarLabel + ", " + currentNode.weight);
+    					//currentNode = currentNode.next;
+    					//currentList.size += 1;
+    				}
+	    		}
+	    	
+	    	}*/
     		//for
 
 		    // update return value
@@ -146,6 +186,17 @@ public class AdjList extends AbstractAssocGraph
 
 
     public void updateWeightEdge(String srcLabel, String tarLabel, int weight) {
+    	//It's simple dude! Just search for it!
+    	for(int i = 0; i < verts.length; i++)
+    	{
+    		System.out.println("Verts iteration");
+    		
+    		if(verts[i].equals(srcLabel))
+    		{
+    			
+    		}
+    	
+    	}
         // Implement me!
     } // end of updateWeightEdge()
 
@@ -173,12 +224,22 @@ public class AdjList extends AbstractAssocGraph
     } // end of outNearestNeighbours()
 
 
-    public void printVertices(PrintWriter os) {
+    public void printVertices(PrintWriter os)
+    {
+    	System.out.println("printVertices()");
+    	//Actual printwriting functionality can come later.
+    	for(int i = 0; i < verts.length; i++)
+    	{
+    		System.out.println(verts[i]);
+    	}
+    	
         // Implement me!
     } // end of printVertices()
 
 
-    public void printEdges(PrintWriter os) {
+    public void printEdges(PrintWriter os)
+    {
+    	
         // Implement me!
     } // end of printEdges()
 
