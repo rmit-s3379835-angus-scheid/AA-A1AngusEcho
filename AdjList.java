@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.*;
+import java.util.Map.Entry;
 
 //import AdjList.linkedList;
 
@@ -20,7 +21,9 @@ public class AdjList extends AbstractAssocGraph
 	public String[] verts;
 	
 	//Map to monitor linkedlist to vert locations.
-	Map<String, linkedList> vertListMap = new HashMap<String, linkedList>();
+	//Map<String, linkedList> vertListMap = new HashMap<String, linkedList>();
+	
+	Map<String, linkedList> vertListMap = new HashMap<>();
 	
 	
     /**
@@ -91,6 +94,7 @@ public class AdjList extends AbstractAssocGraph
     			//I need to find the list, and the end!
     			linkedList currentList = (linkedList) vertListMap.get(srcLabel);
     			
+    			
     			Node currentNode = currentList.head;
     			
     			//Detect if the head is empty first.
@@ -98,14 +102,16 @@ public class AdjList extends AbstractAssocGraph
     			{
     				System.out.println("Head is empty");
     				currentList.head = newNode;
+    				
     				currentList.size++;
+    				System.out.println("Head printout: " + currentList.head.getWeight());
     			}
     			else
     			{
     				//Iterate here.
     				System.out.println("Adding to later in the list");
     				System.out.println("currentNode.next status: " + currentNode.next);
-    				vertListMap.forEach((key, value) -> System.out.println("vertListMap printout: " + key + ":" + value.size));
+    				
     				//if (currentNode.
     				
     				
@@ -121,14 +127,14 @@ public class AdjList extends AbstractAssocGraph
         				{
         					System.out.println("current.next == null");
         					currentNode.next = newNode;
-        					System.out.println("vertListMap.size A: " + vertListMap.size());
+        					//System.out.println("vertListMap.size A: " + vertListMap.size());
         					currentList.size++;
         				}
     					
     				}
     				
     				
-    				
+    			
     			}
     			
     			
@@ -141,9 +147,11 @@ public class AdjList extends AbstractAssocGraph
     				System.out.println(entry.getKey() + ":" + entry.getValue().toString());
     			}*/
     			
-    			return;
+    			break;
     				
     		}
+    		
+    		
     	}
     	
     	//The code doesn't go here?
@@ -152,6 +160,13 @@ public class AdjList extends AbstractAssocGraph
     	vertListMap.values().toString();
     	
     	System.out.println("vertListMap.size: " + vertListMap.size());
+    	
+    	
+    	System.out.println("End of addEdge debug: ");
+		
+    	forEachPrintout(vertListMap);
+		
+		System.out.println("/AddEdge");
         // Implement me!
     } // end of addEdge()
 
@@ -193,6 +208,7 @@ public class AdjList extends AbstractAssocGraph
     		
     		if(verts[i].equals(srcLabel))
     		{
+    			//Use a function to find the LL, which I will have to depend on the map for.
     			
     		}
     	
@@ -259,6 +275,27 @@ public class AdjList extends AbstractAssocGraph
     		this.vert = vert;
     		this.size = 0;
     	}
+    	
+    	public Node getHeadNode()
+    	{
+    		return this.head;
+    	}
+    	
+    	public int getSize()
+    	{
+    		return this.size;
+    	}
+    }
+    
+    public void forEachPrintout(Map<String, linkedList> vertListMap)
+    {
+    	//<String, linkedList>
+    	//vertListMap.forEach((key, value) -> System.out.println("vertListMap printout: " + key + ":" + value.getSize() + " Head's edge weight: " + value.getHeadNode().getWeight() + " Head's srcVert: " + value.getHeadNode().getSrcLabel() + " Head's tarVert: " + value.getHeadNode().getTarLabel()));
+    	//vertListMap.forEach((key, value) -> System.out.println("vertListMap printout: " + key + ":" + value.getSize() + " Head's edge weight: " + value.getHeadNode().getWeight() + " Head's srcVert: " + value.getHeadNode().getSrcLabel() + " Head's tarVert: " + value.getHeadNode().getTarLabel()));
+    	
+    	//This just prints out the memory addresses of the linked lists, will work on getting the properties soon.
+    	for (Entry<String, linkedList> entry: vertListMap.entrySet())
+    		System.out.println("Key (vert) : " + entry.getKey() + "Value (LL MA): " + entry.getValue());
     }
 
     protected class Node {
@@ -279,8 +316,19 @@ public class AdjList extends AbstractAssocGraph
     		this.tarLabel = tarLabel;
     	}
     	
+    	public int getWeight()
+    	{
+    		return this.weight;
+    	}
     	
+    	public String getSrcLabel()
+    	{
+    		return this.srcLabel;
+    	}
     	
-    	
+    	public String getTarLabel()
+    	{
+    		return this.tarLabel;
+    	}
     }
 } // end of class AdjList
