@@ -19,6 +19,8 @@ public class AdjList extends AbstractAssocGraph
 	//For now, I will just hardcode the vert array to 8 indices and come back to it later.
 	//java.lang.String[] verts = new String[8];
 	public String[] verts;
+	public Node[] heads = new Node[8];
+	public int LLCount = 0;
 	
 	//Map to monitor linkedlist to vert locations.
 	//Map<String, linkedList> vertListMap = new HashMap<String, linkedList>();
@@ -101,8 +103,11 @@ public class AdjList extends AbstractAssocGraph
     			if (currentList.head == null)
     			{
     				System.out.println("Head is empty");
-    				currentList.head = newNode;
+    				//currentList.head = newNode;
     				
+    				currentList.setHeadNode(newNode);
+    				heads[LLCount] = newNode;
+    				LLCount++;
     				currentList.size++;
     				System.out.println("Head printout: " + currentList.head.getWeight());
     			}
@@ -262,8 +267,8 @@ public class AdjList extends AbstractAssocGraph
     
     public class linkedList
     {
-    	protected Node head;
-    	protected int size;
+    	public Node head;
+    	public int size;
     	
     	//Just for something different, I'm adding a vert string property to the linked list class, hopefully this will make things clearer.
     	protected String vert;
@@ -271,7 +276,7 @@ public class AdjList extends AbstractAssocGraph
 
     	public linkedList(String vert)
     	{
-    		this.head = head;
+    		//this.head = head;
     		this.vert = vert;
     		this.size = 0;
     	}
@@ -281,10 +286,17 @@ public class AdjList extends AbstractAssocGraph
     		return this.head;
     	}
     	
+    	public void setHeadNode(Node head)
+    	{
+    		this.head = head;
+    	}
+    	
     	public int getSize()
     	{
     		return this.size;
     	}
+    	
+    	//Size has to be set by setters! Dummy!
     }
     
     public void forEachPrintout(Map<String, linkedList> vertListMap)
@@ -292,10 +304,22 @@ public class AdjList extends AbstractAssocGraph
     	//<String, linkedList>
     	//vertListMap.forEach((key, value) -> System.out.println("vertListMap printout: " + key + ":" + value.getSize() + " Head's edge weight: " + value.getHeadNode().getWeight() + " Head's srcVert: " + value.getHeadNode().getSrcLabel() + " Head's tarVert: " + value.getHeadNode().getTarLabel()));
     	//vertListMap.forEach((key, value) -> System.out.println("vertListMap printout: " + key + ":" + value.getSize() + " Head's edge weight: " + value.getHeadNode().getWeight() + " Head's srcVert: " + value.getHeadNode().getSrcLabel() + " Head's tarVert: " + value.getHeadNode().getTarLabel()));
+    	int headsIterator = 0;
     	
     	//This just prints out the memory addresses of the linked lists, will work on getting the properties soon.
     	for (Entry<String, linkedList> entry: vertListMap.entrySet())
-    		System.out.println("Key (vert) : " + entry.getKey() + "Value (LL MA): " + entry.getValue());
+    	{
+    		//System.out.println("Key (vert) : " + entry.getKey() + "Value (LL MA): " + entry.getValue().toString() + " Head MA: " + entry.getValue().getHeadNode() );
+    		System.out.println("Key (vert) : " + entry.getKey() + "Value (LL MA): " + entry.getValue().toString() + " Head MA: " + heads[headsIterator] );
+    		Node currentNode = entry.getValue().getHeadNode();
+    		System.out.println("Head's weight: " + heads[headsIterator].getWeight());
+    		
+    		if(heads[headsIterator + 1] != null)
+    		{
+    			headsIterator++;
+    		}
+    		
+    	}
     }
 
     protected class Node {
