@@ -35,6 +35,8 @@ public class AdjList extends AbstractAssocGraph
     	 // Implement me!
     	System.out.println("*Adj List Initialised*");
     	verts = new String[8];
+    	
+    	System.out.println("/AdjList \n \n");
     } // end of AdjList()
 
 
@@ -63,7 +65,7 @@ public class AdjList extends AbstractAssocGraph
     		System.out.println(verts[i]);
     	}
     	
-    	System.out.println("end of addVertex()");
+    	System.out.println("/end of addVertex() \n \n");
     	
     } // end of addVertex()
 
@@ -84,6 +86,9 @@ public class AdjList extends AbstractAssocGraph
     	for(int i = 0; i < verts.length; i++)
     	{
     		System.out.println("Verts iteration");
+    		
+    		if(verts[i] != null)
+    		{
     		
     		if(verts[i].equals(srcLabel))
     		{
@@ -107,8 +112,8 @@ public class AdjList extends AbstractAssocGraph
     				
     				currentList.setHeadNode(newNode);
     				heads[LLCount] = newNode;
-    				LLCount++;
-    				currentList.size++;
+    				LLCount += 1;
+    				currentList.size += 1;
     				System.out.println("Head printout: " + currentList.head.getWeight());
     			}
     			else
@@ -117,34 +122,36 @@ public class AdjList extends AbstractAssocGraph
     				System.out.println("Adding to later in the list");
     				System.out.println("currentNode.next status: " + currentNode.next);
     				
-    				//if (currentNode.
     				
     				
+    				//This entire part is being skipped! We need to do something!
     				
-    				while (currentNode.next != null)
+    				if (currentNode.next == null)
     				{
-    					System.out.println("Iterating to later in the LL");
-    					System.out.println("Iterating through LL: " + currentNode.srcLabel + ", " + currentNode.tarLabel + ", " + currentNode.weight);
-    					currentNode = currentNode.next;
-    					
-    					
-    					if (currentNode.next == null)
-        				{
-        					System.out.println("current.next == null");
-        					currentNode.next = newNode;
-        					//System.out.println("vertListMap.size A: " + vertListMap.size());
-        					currentList.size++;
-        				}
-    					
+    					System.out.println("current.next == null");
+    					currentNode.next = newNode;
+    					//System.out.println("vertListMap.size A: " + vertListMap.size());
+    					currentList.size++;
+    				}
+    				else
+    				{
+	    				while (currentNode.next != null)
+	    				{
+	    					System.out.println("Iterating to later in the LL");
+	    					System.out.println("Iterating through LL: " + currentNode.srcLabel + ", " + currentNode.tarLabel + ", " + currentNode.weight);
+	    					currentNode = currentNode.next;
+	    					
+	    					if (currentNode.next == null)
+	        				{
+	        					System.out.println("current.next == null");
+	        					currentNode.next = newNode;
+	        					//System.out.println("vertListMap.size A: " + vertListMap.size());
+	        					currentList.size++;
+	        					break;
+	        				}
+	    				}
     				}
     				
-    				
-    			
-    			}
-    			
-    			
-    			
-    			
     			System.out.println("vertListMap.size B: " + vertListMap.size());
     			/*
     			for (vertListMap<String, Object> entry : vertListMap.entrySet())
@@ -154,9 +161,9 @@ public class AdjList extends AbstractAssocGraph
     			
     			break;
     				
+    			}
     		}
-    		
-    		
+    		}
     	}
     	
     	//The code doesn't go here?
@@ -171,7 +178,7 @@ public class AdjList extends AbstractAssocGraph
 		
     	forEachPrintout(vertListMap);
 		
-		System.out.println("/AddEdge");
+		System.out.println("/AddEdge \n \n");
         // Implement me!
     } // end of addEdge()
 
@@ -301,25 +308,80 @@ public class AdjList extends AbstractAssocGraph
     
     public void forEachPrintout(Map<String, linkedList> vertListMap)
     {
+    	System.out.println("forEachPrintout()");
+    	
     	//<String, linkedList>
     	//vertListMap.forEach((key, value) -> System.out.println("vertListMap printout: " + key + ":" + value.getSize() + " Head's edge weight: " + value.getHeadNode().getWeight() + " Head's srcVert: " + value.getHeadNode().getSrcLabel() + " Head's tarVert: " + value.getHeadNode().getTarLabel()));
     	//vertListMap.forEach((key, value) -> System.out.println("vertListMap printout: " + key + ":" + value.getSize() + " Head's edge weight: " + value.getHeadNode().getWeight() + " Head's srcVert: " + value.getHeadNode().getSrcLabel() + " Head's tarVert: " + value.getHeadNode().getTarLabel()));
     	int headsIterator = 0;
+    	//int listIterator = 0;
+    	Node currentNode = null;
     	
     	//This just prints out the memory addresses of the linked lists, will work on getting the properties soon.
     	for (Entry<String, linkedList> entry: vertListMap.entrySet())
     	{
-    		//System.out.println("Key (vert) : " + entry.getKey() + "Value (LL MA): " + entry.getValue().toString() + " Head MA: " + entry.getValue().getHeadNode() );
-    		System.out.println("Key (vert) : " + entry.getKey() + "Value (LL MA): " + entry.getValue().toString() + " Head MA: " + heads[headsIterator] );
-    		Node currentNode = entry.getValue().getHeadNode();
-    		System.out.println("Head's weight: " + heads[headsIterator].getWeight());
+    		int listIterator = 0;
+    		if (entry != null)
+    		{
+	    		//System.out.println("Key (vert) : " + entry.getKey() + "Value (LL MA): " + entry.getValue().toString() + " Head MA: " + entry.getValue().getHeadNode() );
+	    		System.out.println("Key (vert) : " + entry.getKey() + ", Value (LL MA): " + entry.getValue().toString() + " List size: " + entry.getValue().getSize() +  ", Head MA: " + heads[headsIterator] );
+	    		//currentNode = entry.getValue().getHeadNode();
+	    		
+	    		
+	    		
+	    		if (heads[headsIterator] != null)
+	    		{
+	    			System.out.println("Head's weight: " + heads[headsIterator].getWeight());
+	    			currentNode = heads[headsIterator];
+	    		}
+	    		
+	    		
+	    		//System.out.println("Head's weight: " + 
+	    		
+	    		
+	    		if (heads[headsIterator] != null)
+	    		{
+	    			System.out.println("List iteration soon!");
+		    		if(heads[headsIterator].next != null)
+		    		{
+		    			System.out.println("List iteration now!");
+		    			
+		    			if (currentNode.next != null)
+		    			{
+		    			
+		    			while (currentNode.next != null)
+		    			{
+			    			System.out.println("List " + heads[headsIterator] + " iteration: " + listIterator );
+			    			System.out.println("Inner node info:");
+			    			System.out.println("Node number: " + listIterator + " srcValue: " +  currentNode.getSrcLabel() + "tarLabel: " + currentNode.getTarLabel() + " Weight: " + currentNode.getWeight());
+			    			currentNode = currentNode.next;
+			    			listIterator++;
+		    			}
+		    			
+		    			System.out.println("Current node after printing all previous: number: " + listIterator + " src: " + currentNode.getSrcLabel() + " tar: " + currentNode.getTarLabel() + " weight: " + currentNode.getWeight() );
+		    			
+		    		}
+		    		else
+		    		{
+		    			System.out.println("heads Array MA: " + heads[headsIterator] + " head getValue() MA: " + entry.getValue().getHeadNode());
+		    			System.out.println("Head's next: " + heads[headsIterator].next);
+		    		}
+	    		}
+	    		headsIterator += 1;
+	    		}	
+    		}
     		
+    		//Detect if there's more entries in the list for the vert we're on.
+    		
+    		
+    		/*
     		if(heads[headsIterator + 1] != null)
     		{
     			headsIterator++;
     		}
-    		
+    		*/
     	}
+    	System.out.println("/forEachPrintout() \n \n");
     }
 
     protected class Node {
