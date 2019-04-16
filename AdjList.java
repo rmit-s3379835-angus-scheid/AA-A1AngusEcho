@@ -2,6 +2,8 @@ import java.io.*;
 import java.util.*;
 import java.util.Map.Entry;
 
+import graphImplementation.MyPair;
+import graphImplementation.*;
 //import AdjList.linkedList;
 
 //import AdjList.linkedList;
@@ -235,13 +237,222 @@ public class AdjList extends AbstractAssocGraph
 
 
     public List<MyPair> inNearestNeighbours(int k, String vertLabel) {
-        List<MyPair> neighbours = new ArrayList<MyPair>();
+        
+    	System.out.println("inNearestNeighbours()");
+    	
+    	List<MyPair> neighbours = new ArrayList<MyPair>();
 
+        //An array for returning the "closest" verts. The verts go in here, and get sorted.
+        //String[] kArray = new String[k];
+        
+        //Iterate through the whole thing, and "put" every 
+        
+        //LET THE RESTRUCTURING, BEGINNING!
+    	int listIterator = 0;
+        int headsIterator = 0;
+    	//int listIterator = 0;
+    	Node currentNode = null;
+    	int neighboursCount = 0;
+    	
+    	//This just prints out the memory addresses of the linked lists, will work on getting the properties soon.
+    	for (Entry<String, linkedList> entry: vertListMap.entrySet())
+    	{
+    		System.out.println("for (Entry<String, linkedList> entry: vertListMap.entrySet())");
+    		
+    		if (entry != null)
+    		{
+	    		
+    			//This is just getting the linked list objects (not the heads)
+    			//System.out.println("Key (vert) : " + entry.getKey() + "Value (LL MA): " + entry.getValue().toString() + " Head MA: " + entry.getValue().getHeadNode() );
+	    		System.out.println("Key (vert) : " + entry.getKey() + ", Value (LL MA): " + entry.getValue().toString() + " List size: " + entry.getValue().getSize() +  ", Head MA: " + heads[headsIterator] );
+	    		//currentNode = entry.getValue().getHeadNode();
+	    		
+	    		
+	    		//Now searching the heads of the linked lists.
+	    		
+	    		if (heads[headsIterator] != null)
+	    		{
+	    			System.out.println("if (heads[headsIterator] != null)");
+	    			System.out.println("Head's weight: " + heads[headsIterator].getWeight());
+	    			currentNode = heads[headsIterator];
+	    		}
+	    		
+	    		
+	    		//System.out.println("Head's weight: " + 
+	    		
+	    		
+	    		if (heads[headsIterator] != null)
+	    		{
+	    			System.out.println("if (heads[headsIterator] != null)");
+	    			System.out.println("List iteration soon!");
+		    		if(heads[headsIterator].next != null)
+		    		{
+		    			System.out.println("if(heads[headsIterator].next != null)");
+		    			System.out.println("List iteration now!");
+		    			
+		    			//Iterating the nodes. The properties we want will be here.
+		    			
+		    			if (currentNode.next != null)
+		    			{
+		    				System.out.println("if (currentNode.next != null)");
+		    			
+			    			do 
+			    			{
+			    				
+			    				if(neighboursCount == (k -1) )
+			    				{
+			    					break;
+			    				}
+			    				
+			    				System.out.println(" do - while (currentNode.next != null && neighboursCount < k)");
+			    				//System.out.println("neighboursCount: " + neighboursCount);
+				    			System.out.println("List " + heads[headsIterator] + " iteration: " + listIterator );
+				    			System.out.println("Inner node info:");
+				    			System.out.println("Node number: " + listIterator + " srcValue: " +  currentNode.getSrcLabel() + " tarLabel: " + currentNode.getTarLabel() + " Weight: " + currentNode.getWeight());
+				    			
+				    			
+				    			//Add the desired node to the arrayList. The vert value is "gotten" from the LL, weight from the node.
+				    			//while (neighboursCount < k)
+				    			//{
+				    				if ( currentNode != null && vertLabel.equals(currentNode.getTarLabel()))
+						    			{
+				    						System.out.println("if ( currentNode != null &&  vertLabel.equals(currentNode.getTarLabel()))");
+						    				neighbours.add( new MyPair(entry.getValue().getVert(),currentNode.getWeight()) );
+						    				System.out.println("Successfully added to neighbours!");
+						    				//neighboursCount++;
+						    				
+						    				/*
+						    				if (currentNode == null)
+						    				{
+						    					System.out.println("	if (currentNode == null)");
+						    					break;
+						    				}*/
+						    				
+						    				//currentNode = currentNode.next;
+						    			}
+				    				
+				    			//}
+				    			
+				    			System.out.println("***Neighbours print should happen here:");
+				    			//Arraylist print for debug purposes:
+				    			for (int i = 0; i < neighbours.size(); i++)
+				    			{
+				    				System.out.println("neighbours print: " + i + " Vert Vaue: " + neighbours.get(i).getKey() + " Weight value: " + neighbours.get(i).getValue());
+				    			}
+			    			
+			    			
+			    			//System.out.println("neighbours print: " +   );
+			    			
+				    		System.out.println("currentNode.next's weight: " + currentNode.next.getWeight());
+				    			
+				    		currentNode = currentNode.next;
+			    			
+			    			listIterator++;
+			    			
+			    			
+			    			
+			    			/*
+			    			if(currentNode == heads[headsIterator])
+			    			{
+			    				currentNode = currentNode.next;
+			    			}*/
+			    			neighboursCount++;
+			    			
+		    			} while (currentNode.getNext() != null);// || neighboursCount < k))
+		    			System.out.println("////while (currentNode.next != null || neighboursCount < k)");
+		    			
+		    			System.out.println("After the While loop");
+		    			
+		    			System.out.println("Node number: " + listIterator + " srcValue: " +  currentNode.getSrcLabel() + "tarLabel: " + currentNode.getTarLabel() + " Weight: " + currentNode.getWeight());
+		    			neighbours.add( new MyPair(entry.getValue().getVert(),currentNode.getWeight()) );
+		    			
+		    			//Remove unwanted verts.
+		    			/*
+		    			for (int i = 0; i <= neighbours.size(); i++)
+		    			{
+		    				neighbours.removeIf(neighbours.get(i).getKey() != currentNode.getTarLabel());
+		    			}*/
+		    			//neighbours.removeIf(i -> (i.getKey() != .getTarLabel()));
+		    			
+		    			
+		    			
+		    			//System.out.println("Current node after printing all previous: number: " + listIterator + " src: " + currentNode.getSrcLabel() + " tar: " + currentNode.getTarLabel() + " weight: " + currentNode.getWeight() );
+		    			
+		    		}
+		    		else
+		    		{
+		    			/*
+		    			for (int i = 0; i <= neighbours.size(); i++)
+		    			{
+		    				if (neighbours.get(i).getKey() != heads[headsIterator].getSrcLabel())
+		    				{
+		    					neighbours.remove(i);
+		    				}
+		    			}*/
+		    			
+		    			break;
+		    			//System.out.println("heads Array MA: " + heads[headsIterator] + " head getValue() MA: " + entry.getValue().getHeadNode());
+		    			//System.out.println("Head's next: " + heads[headsIterator].next);
+		    		}
+	    		}
+		    		
+	    			
+	    			
+	    			//This is probably not correct, pay attention to this.
+	    			
+	    			
+	    			((ArrayList<MyPair>) neighbours).trimToSize();
+		    		
+		    		
+		    		
+	    		headsIterator += 1;
+	    		}	
+    		}
+    		
+    		//Detect if there's more entries in the list for the vert we're on.
+    		
+    		
+    		/*
+    		if(heads[headsIterator + 1] != null)
+    		{
+    			headsIterator++;
+    		}
+    		*/
+    	}
+        
+        
+    			
+    			
+    			
+    			
+    			
+    	//neighbours.sort(MyPair.getValue());
+    	Collections.sort(neighbours, new weightSort());
+    			
+    			
+    	System.out.println("Sorted print:");
+    	
+    	for (int i = 0; i <neighbours.size(); i++)
+    	{
+    		System.out.println(neighbours.get(i));
+    	}
+    	
+    			
+    			
         // Implement me!
 
+    	System.out.println("//inNearestNeighbours() \n \n");
+    
         return neighbours;
     } // end of inNearestNeighbours()
 
+    public class weightSort implements Comparator<MyPair>
+    {
+    	public int compare(MyPair a, MyPair b)
+    	{
+    		return a.getValue() - b.getValue();
+    	}
+    }
 
     public List<MyPair> outNearestNeighbours(int k, String vertLabel) {
         List<MyPair> neighbours = new ArrayList<MyPair>();
@@ -258,8 +469,12 @@ public class AdjList extends AbstractAssocGraph
     	//Actual printwriting functionality can come later.
     	for(int i = 0; i < verts.length; i++)
     	{
-    		System.out.println(verts[i]);
+    		System.out.print(verts[i] + "    ");
     	}
+    	
+    	
+    	
+    	
     	
         // Implement me!
     } // end of printVertices()
@@ -301,6 +516,11 @@ public class AdjList extends AbstractAssocGraph
     	public int getSize()
     	{
     		return this.size;
+    	}
+    	
+    	public String getVert()
+    	{
+    		return this.vert;
     	}
     	
     	//Size has to be set by setters! Dummy!
@@ -358,7 +578,7 @@ public class AdjList extends AbstractAssocGraph
 			    			listIterator++;
 		    			}
 		    			
-		    			System.out.println("Current node after printing all previous: number: " + listIterator + " src: " + currentNode.getSrcLabel() + " tar: " + currentNode.getTarLabel() + " weight: " + currentNode.getWeight() );
+		    			System.out.println("Current node after printing all previous: number: " + listIterator + " src: " + currentNode.getSrcLabel() + " tar: " + currentNode.getTarLabel() + " weight: " + currentNode.getWeight() + " next: " + currentNode.getNext() );
 		    			
 		    		}
 		    		else
@@ -416,5 +636,16 @@ public class AdjList extends AbstractAssocGraph
     	{
     		return this.tarLabel;
     	}
+    	
+    	public Node getNext()
+    	{
+    		return this.next;
+    	}
     }
+
+	@Override
+	public void removeEdge(String srcLabel, String tarLabel) {
+		// TODO Auto-generated method stub
+		
+	}
 } // end of class AdjList

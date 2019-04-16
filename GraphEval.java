@@ -1,5 +1,10 @@
 import java.io.*;
 import java.util.*;
+
+import graphImplementation.*;
+import graphImplementation.AssociationGraph;
+import graphImplementation.IncidenceMatrix;
+import graphImplementation.MyPair;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import java.lang.String;
@@ -241,10 +246,10 @@ public class GraphEval
 		AssociationGraph graph = null;
 		switch(implementationType) {
 			case "adjlist":
-				graph = new AdjList();
+				graph = (AssociationGraph) new AdjList();
 				break;
 			case "incmat":
-				graph = new IncidenceMatrix();
+				graph = (AssociationGraph) new IncidenceMatrix();
 				break;
 			default:
 				System.err.println("Unknown implmementation type.");
